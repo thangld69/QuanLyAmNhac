@@ -203,49 +203,47 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        if(this.txtMaCS.getText().length()==0 || this.txtTenCS.getText().length()==0 )
-           JOptionPane.showMessageDialog(null,"Vui lòng nhập đầy đủ thông tin","Thông Báo",1);
-        else
+        if (this.txtMaCS.getText().length() == 0 || this.txtTenCS.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin", "Thông Báo", 1);
+        } else {
             CaSi.themCS(this.txtMaCS.getText(), this.txtTenCS.getText());
-             loadCaSi();
+        }
+        loadCaSi();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void jtbCaSiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbCaSiMouseClicked
         // TODO add your handling code here:
-        try
-        {
+        try {
             int row = this.jtbCaSi.getSelectedRow(); // lấy dòng tại con trỏ chuột
             String IDrow = (this.jtbCaSi.getModel().getValueAt(row, 0)).toString();// Lấy giá trị tại con trỏ chuột theo kiểu string
             //String gioiTinh = (this.jtbCaSi.getModel().getValueAt(row,4)).toString();// Lấy giá trị Giới Tính theo kiểu string
-            String sql1 = "select * from CASI where MACS=N'"+IDrow+"'";
+            String sql1 = "select * from CASI where MACS=N'" + IDrow + "'";
             ResultSet rs = loadTable.showTextField(sql1);
             // đọc dữ liệu tại dòng "IDrow"
-            if(rs.next()) // nếu có dữ liệu
+            if (rs.next()) // nếu có dữ liệu
             {
-                 maCS = rs.getString("MaCS");
+                maCS = rs.getString("MaCS");
                 this.txtMaCS.setText(rs.getString("MaCS"));
                 this.txtTenCS.setText(rs.getString("TenCS"));
-                
+
             }
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_jtbCaSiMouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        if(this.txtMaCS.getText().length()==0)
-            JOptionPane.showMessageDialog(null,"Vui lòng chọn ca sĩ cần xóa","Thông Báo",1);
-        else
-       {
-            if(JOptionPane.showConfirmDialog(null,"Bạn có muốn xóa ca sĩ "+maCS+" không?","Thông Báo",2)==0)
-            {
+        if (this.txtMaCS.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn ca sĩ cần xóa", "Thông Báo", 1);
+        } else {
+            if (JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa ca sĩ " + maCS + " không?", "Thông Báo", 2) == 0) {
                 CaSi.xoaCS(maCS);
+                txtMaCS.setText("");
+                txtTenCS.setText("");
             }
             loadCaSi();
-       }
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnXoaTrangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaTrangActionPerformed
@@ -256,13 +254,12 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        if(this.txtMaCS.getText().length()==0 || this.txtTenCS.getText().length()==0 )
-            JOptionPane.showMessageDialog(null,"Vui lòng nhập đầy đủ thông tin","Thông Báo",1);
-        else
-       {
-            CaSi.suaCS(maCS,this.txtMaCS.getText(), this.txtTenCS.getText());
+        if (this.txtMaCS.getText().length() == 0 || this.txtTenCS.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin", "Thông Báo", 1);
+        } else {
+            CaSi.suaCS(maCS, this.txtMaCS.getText(), this.txtTenCS.getText());
             loadCaSi();
-       }
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
 

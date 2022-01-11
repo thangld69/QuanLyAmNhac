@@ -58,6 +58,7 @@ public class frmTrangChu extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         btnTest = new com.k33ptoo.components.KButton();
         jDesktopPane2 = new javax.swing.JDesktopPane();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -277,6 +278,11 @@ public class frmTrangChu extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 490));
+
+        jCheckBox1.setText("jCheckBox1");
+        jDesktopPane2.add(jCheckBox1);
+        jCheckBox1.setBounds(110, 60, 81, 23);
+
         getContentPane().add(jDesktopPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 920, 490));
 
         pack();
@@ -327,6 +333,9 @@ public class frmTrangChu extends javax.swing.JFrame {
         jPanel_Nav2.setBackground(panelDefault);
         jPanel_Nav3.setBackground(panelDefault);
         jPanel_Nav4.setBackground(panelClick);
+        NhacSi_Frame f = new NhacSi_Frame();
+        jDesktopPane2.removeAll();
+        jDesktopPane2.add(f).setVisible(true);
     }//GEN-LAST:event_jPanel5MouseClicked
 
 
@@ -382,6 +391,7 @@ public class frmTrangChu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.k33ptoo.components.KButton btnTest;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JDesktopPane jDesktopPane2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
