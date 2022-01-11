@@ -19,7 +19,6 @@ import java.sql.ResultSet;
  */
 public class TrangChu_Frame extends javax.swing.JInternalFrame {
 
-
     public TrangChu_Frame() {
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -27,9 +26,9 @@ public class TrangChu_Frame extends javax.swing.JInternalFrame {
         bi.setNorthPane(null);
         countCaSi.setText("    " + Integer.toString(MyFunctinon.countData("casi")));
         countNS.setText("    " + Integer.toString(MyFunctinon.countData("nhacsi")));
+        countBH.setText("    " + Integer.toString(MyFunctinon.countData("baihat")));
 
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,6 +48,10 @@ public class TrangChu_Frame extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         countNS = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        countBH = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(920, 490));
 
@@ -94,7 +97,7 @@ public class TrangChu_Frame extends javax.swing.JInternalFrame {
         );
 
         jDesktopPane2.add(jPanel6);
-        jPanel6.setBounds(40, 30, 200, 170);
+        jPanel6.setBounds(70, 30, 200, 170);
 
         jPanel7.setBackground(new java.awt.Color(51, 153, 255));
 
@@ -138,7 +141,50 @@ public class TrangChu_Frame extends javax.swing.JInternalFrame {
         );
 
         jDesktopPane2.add(jPanel7);
-        jPanel7.setBounds(310, 30, 200, 170);
+        jPanel7.setBounds(340, 30, 200, 170);
+
+        jPanel9.setBackground(new java.awt.Color(204, 204, 0));
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/_Downloader.la_-61ddd158ed86f-removebg-preview(1).png"))); // NOI18N
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("Bài hát");
+
+        countBH.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        countBH.setForeground(new java.awt.Color(255, 255, 255));
+        countBH.setText("SL");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addComponent(countBH)
+                        .addGap(32, 32, 32)))
+                .addGap(0, 28, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(countBH)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel15)
+                .addGap(29, 29, 29))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(46, Short.MAX_VALUE)
+                .addComponent(jLabel14)
+                .addGap(41, 41, 41))
+        );
+
+        jDesktopPane2.add(jPanel9);
+        jPanel9.setBounds(620, 30, 200, 170);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -166,14 +212,18 @@ public class TrangChu_Frame extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel countBH;
     private javax.swing.JLabel countCaSi;
     private javax.swing.JLabel countNS;
     private javax.swing.JDesktopPane jDesktopPane2;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
 }
