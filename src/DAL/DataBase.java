@@ -8,35 +8,27 @@ package DAL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author PC
  */
 public class DataBase {
-    public static Connection c;
-    private static String db_url = "jdbc:mysql://localhost:3306/quanlykhoa";
-    private static String username = "root";
-    private static String password = "";
-    
 
-    public static Connection getConnection() throws Exception {
-        if (c == null) {
+    public static Connection getConnection(){
+        
+          Connection con = null;
+          
+        try {
             
             Class.forName("com.mysql.jdbc.Driver");
-             
-            c = DriverManager.getConnection(db_url, username, password);
+            con =DriverManager.getConnection("jdbc:mysql://localhost:3306/ql_am_nhac?useUnicode=true&characterEncoding=UTF-8", "root", "");
+            
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
-        return c;
-    }
-    
-    public static int setData(String sql) throws Exception {
-    return DataBase.getConnection().createStatement().executeUpdate(sql);
-    }
- 
-    // Get data From Database
-    public static ResultSet getData(String sql) throws Exception {
-    ResultSet rs = DataBase.getConnection().createStatement().executeQuery(sql);
-    return rs;
+        return con;
     }
 }

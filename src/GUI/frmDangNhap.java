@@ -30,7 +30,7 @@ public class frmDangNhap extends javax.swing.JFrame {
 
         try {
             String sql = "SELECT * FROM `taikhoan` WHERE `password`='" + frmDangNhap.user + "'";
-            ResultSet rs = DAL.DataBase.getData(sql);
+            ResultSet rs = (ResultSet) DAL.DataBase.getConnection();
             while (rs.next()) {
                 pass = rs.getString(2);
             }

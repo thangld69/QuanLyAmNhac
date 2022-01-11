@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package GUI;
 
+import BLL.MyFunctinon;
+import BLL.loadTable;
 import java.awt.Dimension;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
@@ -18,12 +19,23 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
     /**
      * Creates new form CaSi_Frame
      */
+    public static String sql = "Select * From CASI";
+    public static String masv; // biến tạm lưu lại MaSV tại dòng có con trỏ chuột click
+
     public CaSi_Frame() {
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI bi = (BasicInternalFrameUI) this.getUI();
         bi.setNorthPane(null);
-        
+        countCaSi.setText("Số lượng ca sĩ : " + Integer.toString(MyFunctinon.countData("CASI")));
+        loadTable.loadData(sql, jtbCaSi);
+        loadCaSi();
+
+    }
+
+    public void loadCaSi() {
+        loadTable.loadData(sql, jtbCaSi);
+        this.countCaSi.setText("Tổng số sinh viên: " + this.jtbCaSi.getRowCount());
     }
 
     /**
@@ -40,13 +52,18 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtbCaSi = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jTextField1 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jTextField2 = new javax.swing.JTextField();
+        countCaSi = new javax.swing.JLabel();
+        kButton1 = new com.k33ptoo.components.KButton();
+        kButton3 = new com.k33ptoo.components.KButton();
+        kButton4 = new com.k33ptoo.components.KButton();
+        kButton5 = new com.k33ptoo.components.KButton();
 
         setPreferredSize(new java.awt.Dimension(920, 490));
 
@@ -69,20 +86,17 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_micro_36px.png"))); // NOI18N
         kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(373, 36, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtbCaSi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtbCaSi);
 
-        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 1020, 172));
+        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 880, 172));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Mã ca sĩ ");
@@ -110,6 +124,41 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         jTextField2.setOpaque(false);
         kGradientPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 180, 20));
 
+        countCaSi.setText("Số Lượng Ca Sĩ");
+        kGradientPanel1.add(countCaSi, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, -1, -1));
+
+        kButton1.setText("Xóa Trắng");
+        kButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        kButton1.setkEndColor(new java.awt.Color(153, 153, 153));
+        kButton1.setkHoverEndColor(new java.awt.Color(255, 255, 255));
+        kButton1.setkHoverForeGround(new java.awt.Color(0, 0, 0));
+        kButton1.setkHoverStartColor(new java.awt.Color(255, 255, 255));
+        kButton1.setkStartColor(new java.awt.Color(153, 153, 153));
+        kGradientPanel1.add(kButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 240, 100, 40));
+
+        kButton3.setText("Thêm");
+        kButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        kButton3.setkHoverEndColor(new java.awt.Color(0, 204, 102));
+        kButton3.setkHoverForeGround(new java.awt.Color(0, 0, 0));
+        kButton3.setkHoverStartColor(new java.awt.Color(0, 102, 102));
+        kButton3.setkStartColor(new java.awt.Color(0, 51, 204));
+        kGradientPanel1.add(kButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 100, 40));
+
+        kButton4.setText("Sửa");
+        kButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        kButton4.setkHoverForeGround(new java.awt.Color(0, 0, 0));
+        kButton4.setkHoverStartColor(new java.awt.Color(204, 204, 0));
+        kGradientPanel1.add(kButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, 100, 40));
+
+        kButton5.setText("Xóa");
+        kButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        kButton5.setkEndColor(new java.awt.Color(255, 51, 0));
+        kButton5.setkHoverEndColor(new java.awt.Color(255, 51, 51));
+        kButton5.setkHoverForeGround(new java.awt.Color(0, 0, 0));
+        kButton5.setkHoverStartColor(new java.awt.Color(255, 102, 0));
+        kButton5.setkStartColor(new java.awt.Color(255, 51, 51));
+        kGradientPanel1.add(kButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 100, 40));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -126,6 +175,7 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JLabel countCaSi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -134,9 +184,13 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable jtbCaSi;
+    private com.k33ptoo.components.KButton kButton1;
+    private com.k33ptoo.components.KButton kButton3;
+    private com.k33ptoo.components.KButton kButton4;
+    private com.k33ptoo.components.KButton kButton5;
     private com.k33ptoo.components.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
 }

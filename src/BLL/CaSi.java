@@ -6,10 +6,17 @@
 
 package BLL;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 /**
  *
  * @author DELL
  */
 public class CaSi {
+     public static Connection conn = DAL.DataBase.getConnection(); // biến kết nối thông qua DAL
+    public static PreparedStatement pst =null; // biến thực thi sql
+    public static ResultSet rs = null; //kết quả trả về dạng 1 bảng hay 1 dòng dữ liệu
     
 }
