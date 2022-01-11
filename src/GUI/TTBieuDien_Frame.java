@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  *
  * @author DELL
  */
-public class CaSi_Frame extends javax.swing.JInternalFrame {
+public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form CaSi_Frame
@@ -25,7 +25,7 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
     public static String sql = "Select * From CASI";
     public static String maCS; // biến tạm lưu lại MaSV tại dòng có con trỏ chuột click
 
-    public CaSi_Frame() {
+    public TTBieuDien_Frame() {
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI bi = (BasicInternalFrameUI) this.getUI();
@@ -76,18 +76,18 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel1.setText("CA SĨ");
-        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(419, 50, -1, -1));
+        jLabel1.setText("Thông Tin Biểu Diễn");
+        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_micro_36px.png"))); // NOI18N
-        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(478, 36, -1, -1));
+        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_micro_36px.png"))); // NOI18N
-        kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(373, 36, -1, -1));
+        kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, -1, -1));
 
         jtbCaSi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

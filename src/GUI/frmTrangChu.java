@@ -308,6 +308,9 @@ public class frmTrangChu extends javax.swing.JFrame {
         jPanel_Nav2.setBackground(panelClick);
         jPanel_Nav3.setBackground(panelDefault);
         jPanel_Nav4.setBackground(panelDefault);
+        TTBieuDien_Frame f = new TTBieuDien_Frame();
+        jDesktopPane2.removeAll();
+        jDesktopPane2.add(f).setVisible(true);
     }//GEN-LAST:event_jPanel4MouseClicked
 
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
