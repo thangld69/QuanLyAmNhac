@@ -230,8 +230,8 @@ public class frmDangNhap extends javax.swing.JFrame {
                     // đăng nhập thành công
                     //tenDN=this.txtId.getText();
                     frmTrangChu f = new frmTrangChu();
-                    this.setVisible(false);
                     f.setVisible(true);
+                    this.setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(null, "Sai tài khoản hoặc mật khẩu","Thông báo",0);
                 }
