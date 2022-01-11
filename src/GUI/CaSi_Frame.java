@@ -23,7 +23,7 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
      * Creates new form CaSi_Frame
      */
     public static String sql = "Select * From CASI";
-    public static String maCS; // biến tạm lưu lại MaSV tại dòng có con trỏ chuột click
+    public static String maCS; // biến tạm lưu lại MaCS tại dòng có con trỏ chuột click
 
     public CaSi_Frame() {
         initComponents();
