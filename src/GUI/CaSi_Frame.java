@@ -5,18 +5,20 @@
  */
 package GUI;
 
+import BLL.*;
 import BLL.MyFunctinon;
 import BLL.loadTable;
+import java.awt.Desktop;
 import java.awt.Dimension;
-import javax.swing.JOptionPane;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
-import BLL.*;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,9 +26,20 @@ import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -41,7 +54,7 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
     public static String maCS; // biến tạm lưu lại MaCS tại dòng có con trỏ chuột click
     public static String duongdananh = "C:\\Users\\DELL\\Desktop\\HK1_2021\\java\\DA_CK\\QuanLyAmNhac\\src\\imgApp\\no_image.jpg";
     int vitri = -1;
-    public ArrayList<CaSi> al_CaSi = new ArrayList<>();
+    ArrayList<CaSi> al_CaSi = new ArrayList<>();
 
     public CaSi_Frame() {
         initComponents();
@@ -49,23 +62,35 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         BasicInternalFrameUI bi = (BasicInternalFrameUI) this.getUI();
         bi.setNorthPane(null);
         //countCaSi.setText("Số lượng ca sĩ : " + Integer.toString(MyFunctinon.countData("CASI")));
-        loadTable.loadData(sql, jtbCaSi);
-        loadCaSi();
-        //hienThiDanhSach();
+        //loadTable.loadData(sql, jtbCaSi);
+        //loadCaSi();
+        //readFile();
+        hienThiDanhSach();
+        getDSCS();
 
+    }
+
+    public void openFile(String file) {
+        try {
+            File path = new File(file);
+            Desktop.getDesktop().open(path);
+        } catch (IOException ioe) {
+            System.out.println(ioe);
+        }
     }
 
     //
     public static void luufile() throws FileNotFoundException, IOException {
-        FileOutputStream fos = new FileOutputStream(txtMaCS.getText() + ".txt");
-        String text = duongdananh;
+//        FileOutputStream fos = new FileOutputStream(txtMaCS.getText() + ".txt");
+        FileOutputStream fos = new FileOutputStream("dataCS.txt");
+        String text = duongdananh + "\n";
         byte[] luu = text.getBytes();
         fos.write(luu);
         System.out.println("Luu thanh cong");
     }
 
     public static void docfile() throws FileNotFoundException, IOException {
-        FileInputStream fis = new FileInputStream(txtMaCS.getText() + ".txt");
+        FileInputStream fis = new FileInputStream("*.txt");
         int c;
         while ((c = fis.read()) != -1) {
 
@@ -73,6 +98,21 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         }
     }
     //
+
+    public static void readFile() {
+        String fileName = "dataCS.txt";//bạn hãy thay đổi đường dẫn tới file của bạn
+//		int []i ={0};//i là biến đếm xem chúng ta đã in tới dòng nào
+        try (Stream<String> stream = Files.lines(Paths.get(fileName), StandardCharsets.UTF_8)) {//đưa về dạng chuẩn utf8
+            stream.forEach(line -> {
+                //line là từng dòng trong file, tại đây bạn có thể tương tác với nội dung của file. Ở đây, mình chỉ in ra nội dung của từng dòng
+
+//				System.out.println(line +" is number line "+ i[0]++);//in ra cả nội dung file và dòng thứ mấy ta vừa in, bắt đầu từ 0
+                System.out.println(line);
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void hienThiDanhSach() {
         ArrayList<CaSi> dSCS = getDSCS();
@@ -123,7 +163,7 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
             Vector vec = new Vector();
             vec.add(cs.getMaCS());
             vec.add(cs.getTenCS());
-            vec.add(cs.getAnh());
+            //vec.add(cs.getAnh());
             model.addRow(vec);
         }
 
@@ -135,7 +175,7 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
 //        txtemail.setText(arrnhanvien.get(vitri).getEmail());
 //        txttuoi.setText(String.valueOf(arrnhanvien.get(vitri).getTuoi()));
 //        txtluong.setText(String.valueOf(arrnhanvien.get(vitri).getLuong()));
-        lblAnh.setIcon(ResizeImage(String.valueOf(al_CaSi.get(vitri).getAnh())));
+        //lblAnh.setIcon(ResizeImage(String.valueOf(al_CaSi.get(vitri).getAnh())));
 
     }
 
@@ -143,7 +183,7 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         CaSi cs = new CaSi();
         cs.setMaCS(txtMaCS.getText());
         cs.setTenCS(txtTenCS.getText());
-        cs.setAnh(duongdananh);
+        //cs.setAnh(duongdananh);
         al_CaSi.add(cs);
     }
 
@@ -199,6 +239,7 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         btnChonAnh = new com.k33ptoo.components.KButton();
         btnXoaTrang = new com.k33ptoo.components.KButton();
         btnSX = new com.k33ptoo.components.KButton();
+        btnIn = new com.k33ptoo.components.KButton();
 
         setPreferredSize(new java.awt.Dimension(920, 490));
 
@@ -279,7 +320,7 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
                 btnLamMoiActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnLamMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 250, 100, 40));
+        kGradientPanel1.add(btnLamMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 240, 100, 40));
 
         btnThem.setText("Thêm");
         btnThem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -292,7 +333,7 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
                 btnThemActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 100, 40));
+        kGradientPanel1.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 100, 40));
 
         btnSua.setText("Sửa");
         btnSua.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -303,7 +344,7 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
                 btnSuaActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 250, 100, 40));
+        kGradientPanel1.add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 240, 100, 40));
 
         btnXoa.setText("Xóa");
         btnXoa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -317,7 +358,7 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
                 btnXoaActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 100, 40));
+        kGradientPanel1.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 100, 40));
 
         lblAnh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgApp/no_image.jpg"))); // NOI18N
         lblAnh.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -369,7 +410,7 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
                 btnXoaTrangActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnXoaTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, 100, 40));
+        kGradientPanel1.add(btnXoaTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, 100, 40));
 
         btnSX.setText("Sắp Xếp");
         btnSX.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -383,7 +424,22 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
                 btnSXActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnSX, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 250, 100, 40));
+        kGradientPanel1.add(btnSX, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 240, 100, 40));
+
+        btnIn.setText("IN");
+        btnIn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnIn.setkEndColor(new java.awt.Color(0, 153, 153));
+        btnIn.setkHoverEndColor(new java.awt.Color(102, 255, 102));
+        btnIn.setkHoverForeGround(new java.awt.Color(255, 255, 255));
+        btnIn.setkHoverStartColor(new java.awt.Color(255, 102, 153));
+        btnIn.setkPressedColor(new java.awt.Color(51, 51, 51));
+        btnIn.setkStartColor(new java.awt.Color(0, 102, 102));
+        btnIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(btnIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 240, 80, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -410,7 +466,7 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
                 //            fillDaTaToArrayList();
 //            fillArrayListToTable();
                 luufile();
-                docfile();
+
             } catch (IOException ex) {
                 Logger.getLogger(CaSi_Frame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -486,6 +542,20 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
 
     private void btnChonAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonAnhActionPerformed
         // TODO add your handling code here:
+        try {
+            JFileChooser f = new JFileChooser("C:\\Users\\DELL\\Downloads");
+            f.setDialogTitle("Mở file");
+            f.showOpenDialog(null);
+            File ftenanh = f.getSelectedFile();
+            duongdananh = ftenanh.getAbsolutePath();
+
+            lblAnh.setIcon(ResizeImage(String.valueOf(duongdananh)));
+            System.out.println(duongdananh);
+
+        } catch (Exception ex) {
+            System.out.println("chưa chọn ảnh");
+            System.out.println(duongdananh);
+        }
     }//GEN-LAST:event_btnChonAnhActionPerformed
 
     private void btnXoaTrangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaTrangActionPerformed
@@ -499,9 +569,51 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         loadTable.loadData(sql, jtbCaSi);
     }//GEN-LAST:event_btnSXActionPerformed
 
+    private void btnInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInActionPerformed
+        // TODO add your handling code here:
+        try{
+           JFileChooser jFileChooser = new JFileChooser();
+           jFileChooser.showSaveDialog(this);
+           File saveFile = jFileChooser.getSelectedFile();
+           
+           if(saveFile != null){
+               saveFile = new File(saveFile.toString()+".xlsx");
+               Workbook wb = new XSSFWorkbook();
+               Sheet sheet = wb.createSheet("danh sách");
+               Row rowCol = sheet.createRow(0);
+               for(int i=0;i<jtbCaSi.getColumnCount();i++){
+                   Cell cell = rowCol.createCell(i);
+                   cell.setCellValue(jtbCaSi.getColumnName(i));
+               }
+               for(int j=0;j<jtbCaSi.getRowCount();j++){
+                   Row row = sheet.createRow(j+1);
+                   for(int k=0;k<jtbCaSi.getColumnCount();k++){
+                       Cell cell = row.createCell(k);
+                       if(jtbCaSi.getValueAt(j, k)!=null){
+                           cell.setCellValue(jtbCaSi.getValueAt(j, k).toString());
+                       }
+                   }
+               }
+               FileOutputStream out = new FileOutputStream(new File(saveFile.toString()));
+               wb.write(out);
+               wb.close();
+               out.close();
+               openFile(saveFile.toString());
+           }else{
+               JOptionPane.showMessageDialog(null,"lỗi");
+           }
+       }catch(FileNotFoundException e){
+           System.out.println(e);
+       }catch(IOException io){
+           System.out.println(io);
+       }
+
+    }//GEN-LAST:event_btnInActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.k33ptoo.components.KButton btnChonAnh;
+    private com.k33ptoo.components.KButton btnIn;
     private com.k33ptoo.components.KButton btnLamMoi;
     private com.k33ptoo.components.KButton btnSX;
     private com.k33ptoo.components.KButton btnSua;

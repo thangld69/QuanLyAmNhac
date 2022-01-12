@@ -5,13 +5,24 @@
  */
 package GUI;
 
+import BLL.*;
 import BLL.MyFunctinon;
 import BLL.loadTable;
+import java.awt.Desktop;
 import java.awt.Dimension;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.ResultSet;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import BLL.*;
-import java.sql.ResultSet;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -71,6 +82,7 @@ public class NhacSi_Frame extends javax.swing.JInternalFrame {
         btnTim = new com.k33ptoo.components.KButton();
         txtTK = new javax.swing.JTextField();
         btnLamMoi = new com.k33ptoo.components.KButton();
+        btnIn = new com.k33ptoo.components.KButton();
 
         setPreferredSize(new java.awt.Dimension(920, 490));
 
@@ -151,7 +163,7 @@ public class NhacSi_Frame extends javax.swing.JInternalFrame {
                 btnXoaTrangActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnXoaTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 240, 100, 40));
+        kGradientPanel1.add(btnXoaTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, 100, 40));
 
         btnThem.setText("Thêm");
         btnThem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -164,7 +176,7 @@ public class NhacSi_Frame extends javax.swing.JInternalFrame {
                 btnThemActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 100, 40));
+        kGradientPanel1.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 100, 40));
 
         btnSua.setText("Sửa");
         btnSua.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -175,7 +187,7 @@ public class NhacSi_Frame extends javax.swing.JInternalFrame {
                 btnSuaActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, 100, 40));
+        kGradientPanel1.add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 100, 40));
 
         btnXoa.setText("Xóa");
         btnXoa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -189,7 +201,7 @@ public class NhacSi_Frame extends javax.swing.JInternalFrame {
                 btnXoaActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 100, 40));
+        kGradientPanel1.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 100, 40));
 
         btnSX.setText("Sắp Xếp");
         btnSX.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -203,7 +215,7 @@ public class NhacSi_Frame extends javax.swing.JInternalFrame {
                 btnSXActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnSX, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 240, 100, 40));
+        kGradientPanel1.add(btnSX, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 240, 100, 40));
 
         btnTim.setText("Tìm");
         btnTim.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -218,11 +230,11 @@ public class NhacSi_Frame extends javax.swing.JInternalFrame {
                 btnTimActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnTim, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 290, 70, 30));
+        kGradientPanel1.add(btnTim, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 300, 70, 30));
 
         txtTK.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtTK.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        kGradientPanel1.add(txtTK, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 290, 180, 30));
+        kGradientPanel1.add(txtTK, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 300, 180, 30));
 
         btnLamMoi.setText("Tải Lại");
         btnLamMoi.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -236,7 +248,22 @@ public class NhacSi_Frame extends javax.swing.JInternalFrame {
                 btnLamMoiActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnLamMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 240, 100, 40));
+        kGradientPanel1.add(btnLamMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 240, 100, 40));
+
+        btnIn.setText("IN");
+        btnIn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnIn.setkEndColor(new java.awt.Color(0, 153, 153));
+        btnIn.setkHoverEndColor(new java.awt.Color(102, 255, 102));
+        btnIn.setkHoverForeGround(new java.awt.Color(255, 255, 255));
+        btnIn.setkHoverStartColor(new java.awt.Color(255, 102, 153));
+        btnIn.setkPressedColor(new java.awt.Color(51, 51, 51));
+        btnIn.setkStartColor(new java.awt.Color(0, 102, 102));
+        btnIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(btnIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 240, 80, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -337,8 +364,57 @@ public class NhacSi_Frame extends javax.swing.JInternalFrame {
         loadTable.loadData(sql, jtbNhacSi);
     }//GEN-LAST:event_btnSXActionPerformed
 
+     public void openFile(String file) {
+        try {
+            File path = new File(file);
+            Desktop.getDesktop().open(path);
+        } catch (IOException ioe) {
+            System.out.println(ioe);
+        }
+    }
+    private void btnInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInActionPerformed
+        // TODO add your handling code here:
+        try {
+            JFileChooser jFileChooser = new JFileChooser();
+            jFileChooser.showSaveDialog(this);
+            File saveFile = jFileChooser.getSelectedFile();
+
+            if (saveFile != null) {
+                saveFile = new File(saveFile.toString() + ".xlsx");
+                Workbook wb = new XSSFWorkbook();
+                Sheet sheet = wb.createSheet("danh sách");
+                Row rowCol = sheet.createRow(0);
+                for (int i = 0; i < jtbNhacSi.getColumnCount(); i++) {
+                    Cell cell = rowCol.createCell(i);
+                    cell.setCellValue(jtbNhacSi.getColumnName(i));
+                }
+                for (int j = 0; j < jtbNhacSi.getRowCount(); j++) {
+                    Row row = sheet.createRow(j + 1);
+                    for (int k = 0; k < jtbNhacSi.getColumnCount(); k++) {
+                        Cell cell = row.createCell(k);
+                        if (jtbNhacSi.getValueAt(j, k) != null) {
+                            cell.setCellValue(jtbNhacSi.getValueAt(j, k).toString());
+                        }
+                    }
+                }
+                FileOutputStream out = new FileOutputStream(new File(saveFile.toString()));
+                wb.write(out);
+                wb.close();
+                out.close();
+                openFile(saveFile.toString());
+            } else {
+                JOptionPane.showMessageDialog(null, "lỗi");
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        } catch (IOException io) {
+            System.out.println(io);
+        }
+    }//GEN-LAST:event_btnInActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.k33ptoo.components.KButton btnIn;
     private com.k33ptoo.components.KButton btnLamMoi;
     private com.k33ptoo.components.KButton btnSX;
     private com.k33ptoo.components.KButton btnSua;
