@@ -231,6 +231,7 @@ public class frmDangNhap extends javax.swing.JFrame {
                     //tenDN=this.txtId.getText();
                     frmTrangChu f = new frmTrangChu();
                     f.setVisible(true);
+                    f.setLocationRelativeTo(null);
                     this.setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(null, "Sai tài khoản hoặc mật khẩu","Thông báo",0);

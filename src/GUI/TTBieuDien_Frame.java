@@ -5,13 +5,19 @@
  */
 package GUI;
 
+import BLL.*;
 import BLL.MyFunctinon;
 import BLL.loadTable;
 import java.awt.Dimension;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.SimpleFormatter;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import BLL.*;
-import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,8 +28,8 @@ public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
     /**
      * Creates new form CaSi_Frame
      */
-    public static String sql = "Select * From CASI";
-    public static String maCS; // biến tạm lưu lại MaSV tại dòng có con trỏ chuột click
+    public static String sql = "Select * From thongtinbieudien";
+    public static String maBD; // biến tạm lưu lại maBD tại dòng có con trỏ chuột click
 
     public TTBieuDien_Frame() {
         initComponents();
@@ -31,14 +37,45 @@ public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
         BasicInternalFrameUI bi = (BasicInternalFrameUI) this.getUI();
         bi.setNorthPane(null);
         //countCaSi.setText("Số lượng ca sĩ : " + Integer.toString(MyFunctinon.countData("CASI")));
-        loadTable.loadData(sql, jtbCaSi);
-        loadCaSi();
+        loadTable.loadData(sql, jtbTTBieuDien);
+        loadBD();
+        loadCbbCaSi();
+        loadCbbBH();
 
     }
+    public void loadCbbCaSi() {
 
-    public void loadCaSi() {
-        loadTable.loadData(sql, jtbCaSi);
-        this.countCaSi.setText("Tổng số ca sĩ: " + this.jtbCaSi.getRowCount());
+        String sql = "SELECT * FROM `casi`";
+        try {
+            Connection conn = DAL.DataBase.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                this.cbbMaCS.addItem(rs.getString("MACS"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void loadCbbBH() {
+
+        String sql = "SELECT * FROM `baihat`";
+        try {
+            Connection conn = DAL.DataBase.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                this.cbbMaBH.addItem(rs.getString("MABH"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void loadBD() {
+        loadTable.loadData(sql, jtbTTBieuDien);
+        this.countCaSi.setText("Tổng số show diễn: " + this.jtbTTBieuDien.getRowCount());
     }
 
     /**
@@ -55,18 +92,24 @@ public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtbCaSi = new javax.swing.JTable();
+        jtbTTBieuDien = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        txtMaCS = new javax.swing.JTextField();
+        txtMaBD = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
-        txtTenCS = new javax.swing.JTextField();
         countCaSi = new javax.swing.JLabel();
         btnXoaTrang = new com.k33ptoo.components.KButton();
         btnThem = new com.k33ptoo.components.KButton();
         btnSua = new com.k33ptoo.components.KButton();
         btnXoa = new com.k33ptoo.components.KButton();
+        cbbMaCS = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabel8 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        txtDiaDiem = new javax.swing.JTextField();
+        cbbMaBH = new javax.swing.JComboBox();
 
         setPreferredSize(new java.awt.Dimension(920, 490));
 
@@ -89,7 +132,7 @@ public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_list_36px.png"))); // NOI18N
         kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, -1, -1));
 
-        jtbCaSi.setModel(new javax.swing.table.DefaultTableModel(
+        jtbTTBieuDien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -97,40 +140,31 @@ public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jtbCaSi.addMouseListener(new java.awt.event.MouseAdapter() {
+        jtbTTBieuDien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtbCaSiMouseClicked(evt);
+                jtbTTBieuDienMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jtbCaSi);
+        jScrollPane1.setViewportView(jtbTTBieuDien);
 
         kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 880, 172));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("Mã ca sĩ ");
-        kGradientPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, -1, -1));
+        jLabel4.setText("Ngày biểu diễn");
+        kGradientPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, -1, -1));
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
-        kGradientPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 178, 10));
+        kGradientPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 178, 10));
 
-        txtMaCS.setBackground(new java.awt.Color(153, 204, 255));
-        txtMaCS.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txtMaCS.setBorder(null);
-        txtMaCS.setOpaque(false);
-        kGradientPanel1.add(txtMaCS, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 180, 20));
+        txtMaBD.setBackground(new java.awt.Color(153, 204, 255));
+        txtMaBD.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtMaBD.setBorder(null);
+        txtMaBD.setOpaque(false);
+        kGradientPanel1.add(txtMaBD, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 180, 20));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Tên ca sĩ");
+        jLabel5.setText("Mã ca sĩ");
         kGradientPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, -1, -1));
-
-        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
-        kGradientPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 178, 10));
-
-        txtTenCS.setBackground(new java.awt.Color(153, 204, 255));
-        txtTenCS.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txtTenCS.setBorder(null);
-        txtTenCS.setOpaque(false);
-        kGradientPanel1.add(txtTenCS, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 180, 20));
 
         countCaSi.setText("Số Lượng Ca Sĩ");
         kGradientPanel1.add(countCaSi, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, -1, -1));
@@ -147,7 +181,7 @@ public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
                 btnXoaTrangActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnXoaTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 240, 100, 40));
+        kGradientPanel1.add(btnXoaTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 270, 100, 40));
 
         btnThem.setText("Thêm");
         btnThem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -160,7 +194,7 @@ public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
                 btnThemActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 100, 40));
+        kGradientPanel1.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, 100, 40));
 
         btnSua.setText("Sửa");
         btnSua.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -171,7 +205,7 @@ public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
                 btnSuaActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, 100, 40));
+        kGradientPanel1.add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 270, 100, 40));
 
         btnXoa.setText("Xóa");
         btnXoa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -185,7 +219,35 @@ public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
                 btnXoaActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 100, 40));
+        kGradientPanel1.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, 100, 40));
+
+        kGradientPanel1.add(cbbMaCS, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, 100, 30));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Mã biểu diễn ");
+        kGradientPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("Mã bài hát");
+        kGradientPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, -1, -1));
+
+        jDateChooser1.setDateFormatString("yyyy-MM-dd");
+        kGradientPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 120, 190, 30));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("Địa điểm");
+        kGradientPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 180, -1, -1));
+
+        jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
+        kGradientPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 200, 190, 10));
+
+        txtDiaDiem.setBackground(new java.awt.Color(153, 204, 255));
+        txtDiaDiem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtDiaDiem.setBorder(null);
+        txtDiaDiem.setOpaque(false);
+        kGradientPanel1.add(txtDiaDiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 180, 190, 20));
+
+        kGradientPanel1.add(cbbMaBH, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 100, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -203,28 +265,40 @@ public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        if(this.txtMaCS.getText().length()==0 || this.txtTenCS.getText().length()==0 )
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String ngayBD = dateFormat.format( jDateChooser1.getDate());
+        if(this.txtMaBD.getText().length()==0 || this.txtDiaDiem.getText().length()==0)
            JOptionPane.showMessageDialog(null,"Vui lòng nhập đầy đủ thông tin","Thông Báo",1);
         else
-            CaSi.themCS(this.txtMaCS.getText(), this.txtTenCS.getText());
-             loadCaSi();
+           
+            TTBieuDien.themBD(this.txtMaBD.getText(), this.cbbMaCS.getSelectedItem().toString(),this.cbbMaBH.getSelectedItem().toString(),ngayBD,this.txtDiaDiem.getText());
+             loadBD();
     }//GEN-LAST:event_btnThemActionPerformed
 
-    private void jtbCaSiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbCaSiMouseClicked
+    private void jtbTTBieuDienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbTTBieuDienMouseClicked
         // TODO add your handling code here:
         try
         {
-            int row = this.jtbCaSi.getSelectedRow(); // lấy dòng tại con trỏ chuột
-            String IDrow = (this.jtbCaSi.getModel().getValueAt(row, 0)).toString();// Lấy giá trị tại con trỏ chuột theo kiểu string
+            int row = this.jtbTTBieuDien.getSelectedRow(); // lấy dòng tại con trỏ chuột
+            String IDrow = (this.jtbTTBieuDien.getModel().getValueAt(row, 0)).toString();// Lấy giá trị tại con trỏ chuột theo kiểu string
             //String gioiTinh = (this.jtbCaSi.getModel().getValueAt(row,4)).toString();// Lấy giá trị Giới Tính theo kiểu string
-            String sql1 = "select * from CASI where MACS=N'"+IDrow+"'";
+            String sql1 = "select * from thongtinbieudien where MABD=N'"+IDrow+"'";
             ResultSet rs = loadTable.showTextField(sql1);
+            DefaultTableModel model = (DefaultTableModel) jtbTTBieuDien.getModel();
+            Date ngayBD;
             // đọc dữ liệu tại dòng "IDrow"
             if(rs.next()) // nếu có dữ liệu
             {
-                 maCS = rs.getString("MaCS");
-                this.txtMaCS.setText(rs.getString("MaCS"));
-                this.txtTenCS.setText(rs.getString("TenCS"));
+                 maBD = rs.getString("MaBD");
+                this.txtMaBD.setText(rs.getString("MABD"));
+                this.txtDiaDiem.setText(rs.getString("DIADIEM"));
+                
+                try {
+                    ngayBD = new SimpleDateFormat("yyyy-MM-dd").parse(model.getValueAt(row, 3).toString());
+                    jDateChooser1.setDate(ngayBD);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
                 
             }
         }
@@ -232,36 +306,36 @@ public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
         {
             JOptionPane.showMessageDialog(null, e);
         }
-    }//GEN-LAST:event_jtbCaSiMouseClicked
+    }//GEN-LAST:event_jtbTTBieuDienMouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        if(this.txtMaCS.getText().length()==0)
+        if(this.txtMaBD.getText().length()==0)
             JOptionPane.showMessageDialog(null,"Vui lòng chọn ca sĩ cần xóa","Thông Báo",1);
         else
        {
-            if(JOptionPane.showConfirmDialog(null,"Bạn có muốn xóa ca sĩ "+maCS+" không?","Thông Báo",2)==0)
+            if(JOptionPane.showConfirmDialog(null,"Bạn có muốn xóa ca sĩ "+maBD+" không?","Thông Báo",2)==0)
             {
-                CaSi.xoaCS(maCS);
+                CaSi.xoaCS(maBD);
             }
-            loadCaSi();
+            loadBD();
        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnXoaTrangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaTrangActionPerformed
         // TODO add your handling code here:
-        txtMaCS.setText("");
-        txtTenCS.setText("");
+        txtMaBD.setText("");
+        txtDiaDiem.setText("");
     }//GEN-LAST:event_btnXoaTrangActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        if(this.txtMaCS.getText().length()==0 || this.txtTenCS.getText().length()==0 )
+        if(this.txtMaBD.getText().length()==0 || this.txtDiaDiem.getText().length()==0 )
             JOptionPane.showMessageDialog(null,"Vui lòng nhập đầy đủ thông tin","Thông Báo",1);
         else
        {
-            CaSi.suaCS(maCS,this.txtMaCS.getText(), this.txtTenCS.getText());
-            loadCaSi();
+            CaSi.suaCS(maBD,this.txtMaBD.getText(), this.txtDiaDiem.getText());
+            loadBD();
        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
@@ -271,18 +345,24 @@ public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
     private com.k33ptoo.components.KButton btnThem;
     private com.k33ptoo.components.KButton btnXoa;
     private com.k33ptoo.components.KButton btnXoaTrang;
+    private javax.swing.JComboBox cbbMaBH;
+    private javax.swing.JComboBox cbbMaCS;
     public static javax.swing.JLabel countCaSi;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jtbCaSi;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JTable jtbTTBieuDien;
     private com.k33ptoo.components.KGradientPanel kGradientPanel1;
-    private javax.swing.JTextField txtMaCS;
-    private javax.swing.JTextField txtTenCS;
+    private javax.swing.JTextField txtDiaDiem;
+    private javax.swing.JTextField txtMaBD;
     // End of variables declaration//GEN-END:variables
 }
