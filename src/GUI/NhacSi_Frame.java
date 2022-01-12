@@ -67,6 +67,10 @@ public class NhacSi_Frame extends javax.swing.JInternalFrame {
         btnThem = new com.k33ptoo.components.KButton();
         btnSua = new com.k33ptoo.components.KButton();
         btnXoa = new com.k33ptoo.components.KButton();
+        btnSX = new com.k33ptoo.components.KButton();
+        btnTim = new com.k33ptoo.components.KButton();
+        txtTK = new javax.swing.JTextField();
+        btnLamMoi = new com.k33ptoo.components.KButton();
 
         setPreferredSize(new java.awt.Dimension(920, 490));
 
@@ -147,7 +151,7 @@ public class NhacSi_Frame extends javax.swing.JInternalFrame {
                 btnXoaTrangActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnXoaTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 240, 100, 40));
+        kGradientPanel1.add(btnXoaTrang, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 240, 100, 40));
 
         btnThem.setText("Thêm");
         btnThem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -160,7 +164,7 @@ public class NhacSi_Frame extends javax.swing.JInternalFrame {
                 btnThemActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 100, 40));
+        kGradientPanel1.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 100, 40));
 
         btnSua.setText("Sửa");
         btnSua.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -171,7 +175,7 @@ public class NhacSi_Frame extends javax.swing.JInternalFrame {
                 btnSuaActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, 100, 40));
+        kGradientPanel1.add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, 100, 40));
 
         btnXoa.setText("Xóa");
         btnXoa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -185,7 +189,54 @@ public class NhacSi_Frame extends javax.swing.JInternalFrame {
                 btnXoaActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 100, 40));
+        kGradientPanel1.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 100, 40));
+
+        btnSX.setText("Sắp Xếp");
+        btnSX.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnSX.setkEndColor(new java.awt.Color(153, 153, 153));
+        btnSX.setkHoverEndColor(new java.awt.Color(255, 255, 255));
+        btnSX.setkHoverForeGround(new java.awt.Color(0, 0, 0));
+        btnSX.setkHoverStartColor(new java.awt.Color(255, 255, 255));
+        btnSX.setkStartColor(new java.awt.Color(0, 102, 102));
+        btnSX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSXActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(btnSX, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 240, 100, 40));
+
+        btnTim.setText("Tìm");
+        btnTim.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnTim.setkEndColor(new java.awt.Color(0, 153, 153));
+        btnTim.setkHoverEndColor(new java.awt.Color(102, 255, 102));
+        btnTim.setkHoverForeGround(new java.awt.Color(255, 255, 255));
+        btnTim.setkHoverStartColor(new java.awt.Color(255, 102, 153));
+        btnTim.setkPressedColor(new java.awt.Color(255, 255, 255));
+        btnTim.setkStartColor(new java.awt.Color(0, 102, 102));
+        btnTim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(btnTim, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 290, 70, 30));
+
+        txtTK.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtTK.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        kGradientPanel1.add(txtTK, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 290, 180, 30));
+
+        btnLamMoi.setText("Tải Lại");
+        btnLamMoi.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnLamMoi.setkEndColor(new java.awt.Color(153, 153, 153));
+        btnLamMoi.setkHoverEndColor(new java.awt.Color(255, 255, 255));
+        btnLamMoi.setkHoverForeGround(new java.awt.Color(0, 0, 0));
+        btnLamMoi.setkHoverStartColor(new java.awt.Color(255, 255, 255));
+        btnLamMoi.setkStartColor(new java.awt.Color(0, 102, 102));
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(btnLamMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 240, 100, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -250,6 +301,7 @@ public class NhacSi_Frame extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         txtMaNS.setText("");
         txtTenNS.setText("");
+        txtTK.setText("");
     }//GEN-LAST:event_btnXoaTrangActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
@@ -262,10 +314,36 @@ public class NhacSi_Frame extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        // TODO add your handling code here:
+        loadNS();
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
+        // TODO add your handling code here:
+        if (txtTK.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập mã nhạc sĩ cần tìm", "Thông Báo", 1);
+        } else {
+            String sql = "SELECT * FROM nhacsi WHERE MANS = '" + txtTK.getText() + "'";;
+
+            loadTable.loadData(sql, jtbNhacSi);
+            this.countNhacSi.setText("Tổng số nhạc sĩ: " + this.jtbNhacSi.getRowCount());
+        }
+    }//GEN-LAST:event_btnTimActionPerformed
+
+    private void btnSXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSXActionPerformed
+        // TODO add your handling code here:
+        String sql = "SELECT * FROM nhacsi ORDER BY MANS"; //lay du lieu
+        loadTable.loadData(sql, jtbNhacSi);
+    }//GEN-LAST:event_btnSXActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.k33ptoo.components.KButton btnLamMoi;
+    private com.k33ptoo.components.KButton btnSX;
     private com.k33ptoo.components.KButton btnSua;
     private com.k33ptoo.components.KButton btnThem;
+    private com.k33ptoo.components.KButton btnTim;
     private com.k33ptoo.components.KButton btnXoa;
     private com.k33ptoo.components.KButton btnXoaTrang;
     public static javax.swing.JLabel countNhacSi;
@@ -280,6 +358,7 @@ public class NhacSi_Frame extends javax.swing.JInternalFrame {
     private javax.swing.JTable jtbNhacSi;
     private com.k33ptoo.components.KGradientPanel kGradientPanel1;
     private javax.swing.JTextField txtMaNS;
+    private javax.swing.JTextField txtTK;
     private javax.swing.JTextField txtTenNS;
     // End of variables declaration//GEN-END:variables
 }

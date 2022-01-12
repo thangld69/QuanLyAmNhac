@@ -19,7 +19,68 @@ public class CaSi {
     public static Connection conn = DAL.DataBase.getConnection(); // biến kết nối thông qua DAL
     public static PreparedStatement pst = null; // biến thực thi sql
     public static ResultSet rs = null; //kết quả trả về dạng 1 bảng hay 1 dòng dữ liệu
-    //private String 
+
+    private String anh;
+    private String maCS;
+    private String tenCS;
+    
+    public CaSi() {
+    }
+
+    public CaSi(String anh, String maCS, String tenCS) {
+        this.anh = anh;
+        this.maCS = maCS;
+        this.tenCS = tenCS;
+    }
+
+    public static Connection getConn() {
+        return conn;
+    }
+
+    public static void setConn(Connection conn) {
+        CaSi.conn = conn;
+    }
+
+    public static PreparedStatement getPst() {
+        return pst;
+    }
+
+    public static void setPst(PreparedStatement pst) {
+        CaSi.pst = pst;
+    }
+
+    public static ResultSet getRs() {
+        return rs;
+    }
+
+    public static void setRs(ResultSet rs) {
+        CaSi.rs = rs;
+    }
+
+    public String getAnh() {
+        return anh;
+    }
+
+    public void setAnh(String anh) {
+        this.anh = anh;
+    }
+
+    public String getMaCS() {
+        return maCS;
+    }
+
+    public void setMaCS(String maCS) {
+        this.maCS = maCS;
+    }
+
+    public String getTenCS() {
+        return tenCS;
+    }
+
+    public void setTenCS(String tenCS) {
+        this.tenCS = tenCS;
+    }
+    
     
 
     public static void themCS(String maCS, String tenCS) {
