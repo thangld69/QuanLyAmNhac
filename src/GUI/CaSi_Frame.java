@@ -11,7 +11,11 @@ import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import BLL.*;
+import java.awt.Image;
+import java.io.File;
 import java.sql.ResultSet;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -24,6 +28,7 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
      */
     public static String sql = "Select * From CASI";
     public static String maCS; // biến tạm lưu lại MaCS tại dòng có con trỏ chuột click
+    String duongdananh = "QuanLyAmNhac\\src\\imgApp";
 
     public CaSi_Frame() {
         initComponents();
@@ -34,6 +39,13 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         loadTable.loadData(sql, jtbCaSi);
         loadCaSi();
 
+    }
+    public ImageIcon ResizeImage(String ImagePath) {
+        ImageIcon MyImage = new ImageIcon(ImagePath);
+        Image img = MyImage.getImage();
+        Image newImg = img.getScaledInstance(lblAnh.getWidth(), lblAnh.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon image = new ImageIcon(newImg);
+        return image;
     }
 
     public void loadCaSi() {
@@ -67,6 +79,8 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         btnThem = new com.k33ptoo.components.KButton();
         btnSua = new com.k33ptoo.components.KButton();
         btnXoa = new com.k33ptoo.components.KButton();
+        lblAnh = new javax.swing.JLabel();
+        btnChonAnh = new com.k33ptoo.components.KButton();
 
         setPreferredSize(new java.awt.Dimension(920, 490));
 
@@ -187,6 +201,25 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         });
         kGradientPanel1.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 100, 40));
 
+        lblAnh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgApp/no_image.jpg"))); // NOI18N
+        lblAnh.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        kGradientPanel1.add(lblAnh, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 80, 180, 130));
+
+        btnChonAnh.setText("Chọn ảnh");
+        btnChonAnh.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnChonAnh.setkEndColor(new java.awt.Color(0, 153, 153));
+        btnChonAnh.setkHoverEndColor(new java.awt.Color(102, 255, 102));
+        btnChonAnh.setkHoverForeGround(new java.awt.Color(255, 255, 255));
+        btnChonAnh.setkHoverStartColor(new java.awt.Color(255, 102, 153));
+        btnChonAnh.setkPressedColor(new java.awt.Color(255, 255, 255));
+        btnChonAnh.setkStartColor(new java.awt.Color(0, 102, 102));
+        btnChonAnh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChonAnhActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(btnChonAnh, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 170, 80, 40));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -262,8 +295,27 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
+    private void btnChonAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonAnhActionPerformed
+        // TODO add your handling code here:
+         try {
+            JFileChooser f = new JFileChooser("C:\\Users\\DELL\\Downloads");
+            f.setDialogTitle("Mở file");
+            f.showOpenDialog(null);
+            File ftenanh = f.getSelectedFile();
+            duongdananh = ftenanh.getAbsolutePath();
+
+            lblAnh.setIcon(ResizeImage(String.valueOf(duongdananh)));
+            System.out.println(duongdananh);
+
+        } catch (Exception ex) {
+            System.out.println("chưa chọn ảnh");
+            System.out.println(duongdananh);
+        }
+    }//GEN-LAST:event_btnChonAnhActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.k33ptoo.components.KButton btnChonAnh;
     private com.k33ptoo.components.KButton btnSua;
     private com.k33ptoo.components.KButton btnThem;
     private com.k33ptoo.components.KButton btnXoa;
@@ -279,6 +331,7 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jtbCaSi;
     private com.k33ptoo.components.KGradientPanel kGradientPanel1;
+    private javax.swing.JLabel lblAnh;
     private javax.swing.JTextField txtMaCS;
     private javax.swing.JTextField txtTenCS;
     // End of variables declaration//GEN-END:variables
