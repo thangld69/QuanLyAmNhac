@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import BLL.*;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -28,7 +30,47 @@ public class TrangChu_Frame extends javax.swing.JInternalFrame {
         countNS.setText("    " + Integer.toString(MyFunctinon.countData("nhacsi")));
         countBH.setText("    " + Integer.toString(MyFunctinon.countData("baihat")));
         countBD.setText("    " + Integer.toString(MyFunctinon.countData("thongtinbieudien")));
+        LoadDongHo();
 
+    }
+    
+    Thread dongho;
+    
+    public void LoadDongHo()
+    {
+       dongho= new Thread()
+       {
+           @Override
+           public void run()
+           {
+               while(true)
+               {
+               Date d = new Date();
+               SimpleDateFormat f = new SimpleDateFormat("hh:mm:ss aa dd/MM/YYYY");
+               String time= f.format(d);
+              lbldongho.setText(time);
+               try
+                    {
+                   Thread.sleep(1000);
+               
+                    }
+               catch(Exception ex)
+                    {
+                   break;
+                    }
+               
+               }
+               
+               
+           }
+           
+           
+           
+       };
+       dongho.start();
+       
+        
+        
     }
 
     /**
@@ -57,6 +99,7 @@ public class TrangChu_Frame extends javax.swing.JInternalFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         countBD = new javax.swing.JLabel();
+        lbldongho = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(920, 490));
 
@@ -102,7 +145,7 @@ public class TrangChu_Frame extends javax.swing.JInternalFrame {
         );
 
         jDesktopPane2.add(jPanel6);
-        jPanel6.setBounds(70, 30, 200, 170);
+        jPanel6.setBounds(70, 50, 200, 170);
 
         jPanel7.setBackground(new java.awt.Color(51, 153, 255));
 
@@ -146,7 +189,7 @@ public class TrangChu_Frame extends javax.swing.JInternalFrame {
         );
 
         jDesktopPane2.add(jPanel7);
-        jPanel7.setBounds(340, 30, 200, 170);
+        jPanel7.setBounds(340, 50, 200, 170);
 
         jPanel9.setBackground(new java.awt.Color(204, 204, 0));
 
@@ -189,7 +232,7 @@ public class TrangChu_Frame extends javax.swing.JInternalFrame {
         );
 
         jDesktopPane2.add(jPanel9);
-        jPanel9.setBounds(620, 30, 200, 170);
+        jPanel9.setBounds(620, 50, 200, 170);
 
         jPanel10.setBackground(new java.awt.Color(255, 153, 102));
 
@@ -232,7 +275,13 @@ public class TrangChu_Frame extends javax.swing.JInternalFrame {
         );
 
         jDesktopPane2.add(jPanel10);
-        jPanel10.setBounds(70, 230, 200, 170);
+        jPanel10.setBounds(70, 250, 200, 170);
+
+        lbldongho.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbldongho.setForeground(new java.awt.Color(255, 255, 255));
+        lbldongho.setText("Đồng hồ");
+        jDesktopPane2.add(lbldongho);
+        lbldongho.setBounds(720, 10, 200, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -277,5 +326,6 @@ public class TrangChu_Frame extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel lbldongho;
     // End of variables declaration//GEN-END:variables
 }
