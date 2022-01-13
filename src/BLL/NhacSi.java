@@ -49,7 +49,7 @@ public class NhacSi {
         }
     }
     // sửa nhạc sĩ
-    public static void suaCS(String MaNS1, String MaNS, String TenNS)
+    public static void suaNS(String MaNS1, String MaNS, String TenNS)
      {
          
         String sql ="update nhacsi set MANS=N'"+MaNS+"', TenNS=N'"+TenNS+"' where MANS='"+MaNS1+"'";

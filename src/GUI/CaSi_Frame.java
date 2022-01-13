@@ -52,9 +52,6 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
      */
     public static String sql = "Select * From CASI";
     public static String maCS; // biến tạm lưu lại MaCS tại dòng có con trỏ chuột click
-    public static String duongdananh = "C:\\Users\\DELL\\Desktop\\HK1_2021\\java\\DA_CK\\QuanLyAmNhac\\src\\imgApp\\no_image.jpg";
-    int vitri = -1;
-    ArrayList<CaSi> al_CaSi = new ArrayList<>();
 
     public CaSi_Frame() {
         initComponents();
@@ -62,11 +59,9 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         BasicInternalFrameUI bi = (BasicInternalFrameUI) this.getUI();
         bi.setNorthPane(null);
         //countCaSi.setText("Số lượng ca sĩ : " + Integer.toString(MyFunctinon.countData("CASI")));
-        //loadTable.loadData(sql, jtbCaSi);
-        //loadCaSi();
-        //readFile();
-        hienThiDanhSach();
-        getDSCS();
+        loadTable.loadData(sql, jtbCaSi);
+        loadCaSi();
+       
 
     }
 
@@ -77,122 +72,6 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         } catch (IOException ioe) {
             System.out.println(ioe);
         }
-    }
-
-    //
-    public static void luufile() throws FileNotFoundException, IOException {
-//        FileOutputStream fos = new FileOutputStream(txtMaCS.getText() + ".txt");
-        FileOutputStream fos = new FileOutputStream("dataCS.txt");
-        String text = duongdananh + "\n";
-        byte[] luu = text.getBytes();
-        fos.write(luu);
-        System.out.println("Luu thanh cong");
-    }
-
-    public static void docfile() throws FileNotFoundException, IOException {
-        FileInputStream fis = new FileInputStream("*.txt");
-        int c;
-        while ((c = fis.read()) != -1) {
-
-            System.out.print((char) c);
-        }
-    }
-    //
-
-    public static void readFile() {
-        String fileName = "dataCS.txt";//bạn hãy thay đổi đường dẫn tới file của bạn
-//		int []i ={0};//i là biến đếm xem chúng ta đã in tới dòng nào
-        try (Stream<String> stream = Files.lines(Paths.get(fileName), StandardCharsets.UTF_8)) {//đưa về dạng chuẩn utf8
-            stream.forEach(line -> {
-                //line là từng dòng trong file, tại đây bạn có thể tương tác với nội dung của file. Ở đây, mình chỉ in ra nội dung của từng dòng
-
-//				System.out.println(line +" is number line "+ i[0]++);//in ra cả nội dung file và dòng thứ mấy ta vừa in, bắt đầu từ 0
-                System.out.println(line);
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void hienThiDanhSach() {
-        ArrayList<CaSi> dSCS = getDSCS();
-        DefaultTableModel model = (DefaultTableModel) jtbCaSi.getModel();
-        model.setColumnIdentifiers(new Object[]{
-            "MACS", "TENCS"
-        });
-        Object[] row = new Object[7];
-        for (int i = 0; i < dSCS.size(); i++) {
-            row[0] = dSCS.get(i).getMaCS();
-            row[1] = dSCS.get(i).getTenCS();
-            model.addRow(row);
-        }
-    }
-
-    public ArrayList<CaSi> getDSCS() {
-        ArrayList<CaSi> listCS = new ArrayList<>();
-        try {
-            Connection conn = DAL.DataBase.getConnection();
-            String sql = "Select * from casi"; //lay du lieu
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                CaSi cs = new CaSi();
-                cs.setMaCS(rs.getString(1));
-                cs.setTenCS(rs.getString(2));
-                listCS.add(cs);
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listCS;
-    }
-
-    public void fillArrayListToTable() {
-
-        DefaultTableModel model = (DefaultTableModel) jtbCaSi.getModel();
-        model.setRowCount(0);
-        /* for(NhanVien nv : arrnhanvien)
-         {
-         model.addRow(new Object[]{nv.getManv(),nv.getHoten(),nv.getTuoi(),nv.getEmail(),nv.getLuong() });
-      
-         }
-         */
-        for (CaSi cs : al_CaSi) {
-            Vector vec = new Vector();
-            vec.add(cs.getMaCS());
-            vec.add(cs.getTenCS());
-            //vec.add(cs.getAnh());
-            model.addRow(vec);
-        }
-
-    }
-
-    public void filltocontroll(int vitri) {
-        txtMaCS.setText(al_CaSi.get(vitri).getMaCS());
-        txtTenCS.setText(al_CaSi.get(vitri).getTenCS());
-//        txtemail.setText(arrnhanvien.get(vitri).getEmail());
-//        txttuoi.setText(String.valueOf(arrnhanvien.get(vitri).getTuoi()));
-//        txtluong.setText(String.valueOf(arrnhanvien.get(vitri).getLuong()));
-        //lblAnh.setIcon(ResizeImage(String.valueOf(al_CaSi.get(vitri).getAnh())));
-
-    }
-
-    public void fillDaTaToArrayList() {
-        CaSi cs = new CaSi();
-        cs.setMaCS(txtMaCS.getText());
-        cs.setTenCS(txtTenCS.getText());
-        //cs.setAnh(duongdananh);
-        al_CaSi.add(cs);
-    }
-
-    public ImageIcon ResizeImage(String ImagePath) {
-        ImageIcon MyImage = new ImageIcon(ImagePath);
-        Image img = MyImage.getImage();
-        Image newImg = img.getScaledInstance(lblAnh.getWidth(), lblAnh.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon image = new ImageIcon(newImg);
-        return image;
     }
 
     public void clean() {
@@ -236,7 +115,6 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         lblAnh = new javax.swing.JLabel();
         btnTim = new com.k33ptoo.components.KButton();
         txtTK = new javax.swing.JTextField();
-        btnChonAnh = new com.k33ptoo.components.KButton();
         btnXoaTrang = new com.k33ptoo.components.KButton();
         btnSX = new com.k33ptoo.components.KButton();
         btnIn = new com.k33ptoo.components.KButton();
@@ -360,7 +238,7 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         });
         kGradientPanel1.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 100, 40));
 
-        lblAnh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgApp/no_image.jpg"))); // NOI18N
+        lblAnh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/_Downloader.la_-61dda7760439e_1_-removebg-preview(1).png"))); // NOI18N
         lblAnh.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         kGradientPanel1.add(lblAnh, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 80, 180, 130));
 
@@ -382,21 +260,6 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         txtTK.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtTK.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         kGradientPanel1.add(txtTK, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 300, 180, 30));
-
-        btnChonAnh.setText("Chọn ảnh");
-        btnChonAnh.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnChonAnh.setkEndColor(new java.awt.Color(0, 153, 153));
-        btnChonAnh.setkHoverEndColor(new java.awt.Color(102, 255, 102));
-        btnChonAnh.setkHoverForeGround(new java.awt.Color(255, 255, 255));
-        btnChonAnh.setkHoverStartColor(new java.awt.Color(255, 102, 153));
-        btnChonAnh.setkPressedColor(new java.awt.Color(255, 255, 255));
-        btnChonAnh.setkStartColor(new java.awt.Color(0, 102, 102));
-        btnChonAnh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChonAnhActionPerformed(evt);
-            }
-        });
-        kGradientPanel1.add(btnChonAnh, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 170, 80, 40));
 
         btnXoaTrang.setText("Xóa Trắng");
         btnXoaTrang.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -461,15 +324,6 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin", "Thông Báo", 1);
         } else {
             CaSi.themCS(this.txtMaCS.getText(), this.txtTenCS.getText());
-            temp = duongdananh;
-            try {
-                //            fillDaTaToArrayList();
-//            fillArrayListToTable();
-                luufile();
-
-            } catch (IOException ex) {
-                Logger.getLogger(CaSi_Frame.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
         //hienThiDanhSach();
         loadCaSi();
@@ -480,7 +334,6 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         try {
             int row = this.jtbCaSi.getSelectedRow(); // lấy dòng tại con trỏ chuột
             String IDrow = (this.jtbCaSi.getModel().getValueAt(row, 0)).toString();// Lấy giá trị tại con trỏ chuột theo kiểu string
-            //String gioiTinh = (this.jtbCaSi.getModel().getValueAt(row,4)).toString();// Lấy giá trị Giới Tính theo kiểu string
             String sql1 = "select * from CASI where MACS=N'" + IDrow + "'";
             ResultSet rs = loadTable.showTextField(sql1);
             // đọc dữ liệu tại dòng "IDrow"
@@ -489,10 +342,6 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
                 maCS = rs.getString("MaCS");
                 this.txtMaCS.setText(rs.getString("MaCS"));
                 this.txtTenCS.setText(rs.getString("TenCS"));
-
-                //String file = new docfile();
-//                lblAnh.setIcon(ResizeImage(String.valueOf(rs.getString("URL"))));
-                lblAnh.setIcon(ResizeImage(String.valueOf(temp)));
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -539,24 +388,6 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
             this.countCaSi.setText("Tổng số ca sĩ: " + this.jtbCaSi.getRowCount());
         }
     }//GEN-LAST:event_btnTimActionPerformed
-
-    private void btnChonAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonAnhActionPerformed
-        // TODO add your handling code here:
-        try {
-            JFileChooser f = new JFileChooser("C:\\Users\\DELL\\Downloads");
-            f.setDialogTitle("Mở file");
-            f.showOpenDialog(null);
-            File ftenanh = f.getSelectedFile();
-            duongdananh = ftenanh.getAbsolutePath();
-
-            lblAnh.setIcon(ResizeImage(String.valueOf(duongdananh)));
-            System.out.println(duongdananh);
-
-        } catch (Exception ex) {
-            System.out.println("chưa chọn ảnh");
-            System.out.println(duongdananh);
-        }
-    }//GEN-LAST:event_btnChonAnhActionPerformed
 
     private void btnXoaTrangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaTrangActionPerformed
         // TODO add your handling code here:
@@ -612,7 +443,6 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.k33ptoo.components.KButton btnChonAnh;
     private com.k33ptoo.components.KButton btnIn;
     private com.k33ptoo.components.KButton btnLamMoi;
     private com.k33ptoo.components.KButton btnSX;

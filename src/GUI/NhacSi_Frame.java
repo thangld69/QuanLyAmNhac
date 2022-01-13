@@ -336,7 +336,7 @@ public class NhacSi_Frame extends javax.swing.JInternalFrame {
         if (txtMaNS.getText().length() == 0 || this.txtTenNS.getText().length() == 0) {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin", "Thông Báo", 1);
         } else {
-            NhacSi.suaCS(maNS, this.txtMaNS.getText(), this.txtTenNS.getText());
+            NhacSi.suaNS(maNS, this.txtMaNS.getText(), this.txtTenNS.getText());
             loadNS();
         }
     }//GEN-LAST:event_btnSuaActionPerformed

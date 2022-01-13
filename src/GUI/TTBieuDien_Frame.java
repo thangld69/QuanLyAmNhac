@@ -54,6 +54,7 @@ public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
         loadCbbBH();
 
     }
+
     public void loadCbbCaSi() {
 
         String sql = "SELECT * FROM `casi`";
@@ -68,7 +69,7 @@ public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }
     }
-    
+
     public void loadCbbBH() {
 
         String sql = "SELECT * FROM `baihat`";
@@ -83,7 +84,7 @@ public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }
     }
-    
+
     public void loadBD() {
         loadTable.loadData(sql, jtbTTBieuDien);
         this.countBD.setText("Tổng số show diễn: " + this.jtbTTBieuDien.getRowCount());
@@ -344,60 +345,55 @@ public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String ngayBD = dateFormat.format( jDateChooser1.getDate());
-        if(this.txtMaBD.getText().length()==0 || this.txtDiaDiem.getText().length()==0)
-           JOptionPane.showMessageDialog(null,"Vui lòng nhập đầy đủ thông tin","Thông Báo",1);
-        else
-           
-            TTBieuDien.themBD(this.txtMaBD.getText(), this.cbbMaCS.getSelectedItem().toString(),this.cbbMaBH.getSelectedItem().toString(),ngayBD,this.txtDiaDiem.getText());
-             loadBD();
+        String ngayBD = dateFormat.format(jDateChooser1.getDate());
+        if (this.txtMaBD.getText().length() == 0 || this.txtDiaDiem.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin", "Thông Báo", 1);
+        } else {
+            TTBieuDien.themBD(this.txtMaBD.getText(), this.cbbMaCS.getSelectedItem().toString(), this.cbbMaBH.getSelectedItem().toString(), ngayBD, this.txtDiaDiem.getText());
+        }
+        loadBD();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void jtbTTBieuDienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbTTBieuDienMouseClicked
         // TODO add your handling code here:
-        try
-        {
+        try {
             int row = this.jtbTTBieuDien.getSelectedRow(); // lấy dòng tại con trỏ chuột
             String IDrow = (this.jtbTTBieuDien.getModel().getValueAt(row, 0)).toString();// Lấy giá trị tại con trỏ chuột theo kiểu string
             //String gioiTinh = (this.jtbCaSi.getModel().getValueAt(row,4)).toString();// Lấy giá trị Giới Tính theo kiểu string
-            String sql1 = "select * from thongtinbieudien where MABD=N'"+IDrow+"'";
+            String sql1 = "select * from thongtinbieudien where MABD=N'" + IDrow + "'";
             ResultSet rs = loadTable.showTextField(sql1);
             DefaultTableModel model = (DefaultTableModel) jtbTTBieuDien.getModel();
             Date ngayBD;
             // đọc dữ liệu tại dòng "IDrow"
-            if(rs.next()) // nếu có dữ liệu
+            if (rs.next()) // nếu có dữ liệu
             {
-                 maBD = rs.getString("MaBD");
+                maBD = rs.getString("MaBD");
                 this.txtMaBD.setText(rs.getString("MABD"));
                 this.txtDiaDiem.setText(rs.getString("DIADIEM"));
-                
+
                 try {
                     ngayBD = new SimpleDateFormat("yyyy-MM-dd").parse(model.getValueAt(row, 3).toString());
                     jDateChooser1.setDate(ngayBD);
                 } catch (Exception e) {
                     System.out.println(e);
                 }
-                
+
             }
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_jtbTTBieuDienMouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        if(this.txtMaBD.getText().length()==0)
-            JOptionPane.showMessageDialog(null,"Vui lòng chọn ca sĩ cần xóa","Thông Báo",1);
-        else
-       {
-            if(JOptionPane.showConfirmDialog(null,"Bạn có muốn xóa ca sĩ "+maBD+" không?","Thông Báo",2)==0)
-            {
+        if (this.txtMaBD.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn ca sĩ cần xóa", "Thông Báo", 1);
+        } else {
+            if (JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa ca sĩ " + maBD + " không?", "Thông Báo", 2) == 0) {
                 CaSi.xoaCS(maBD);
             }
             loadBD();
-       }
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnXoaTrangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaTrangActionPerformed
@@ -411,13 +407,17 @@ public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        if(this.txtMaBD.getText().length()==0 || this.txtDiaDiem.getText().length()==0 )
-            JOptionPane.showMessageDialog(null,"Vui lòng nhập đầy đủ thông tin","Thông Báo",1);
-        else
-       {
-            CaSi.suaCS(maBD,this.txtMaBD.getText(), this.txtDiaDiem.getText());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String ngayBD = dateFormat.format(jDateChooser1.getDate());
+        if (this.txtMaBD.getText().length() == 0 || this.txtDiaDiem.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin", "Thông Báo", 1);
+        } else {
+
+//              jDateChooser1.setText(time);
+            TTBieuDien.suaBD(maBD, this.txtMaBD.getText(), this.cbbMaCS.getSelectedItem().toString(), this.cbbMaBH.getSelectedItem().toString(), ngayBD, this.txtDiaDiem.getText());
             loadBD();
-       }
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
@@ -443,7 +443,7 @@ public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnTimActionPerformed
 
-      public void openFile(String file) {
+    public void openFile(String file) {
         try {
             File path = new File(file);
             Desktop.getDesktop().open(path);
