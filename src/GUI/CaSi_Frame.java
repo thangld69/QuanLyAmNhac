@@ -112,7 +112,6 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         btnThem = new com.k33ptoo.components.KButton();
         btnSua = new com.k33ptoo.components.KButton();
         btnXoa = new com.k33ptoo.components.KButton();
-        lblAnh = new javax.swing.JLabel();
         btnTim = new com.k33ptoo.components.KButton();
         txtTK = new javax.swing.JTextField();
         btnXoaTrang = new com.k33ptoo.components.KButton();
@@ -237,10 +236,6 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
             }
         });
         kGradientPanel1.add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 100, 40));
-
-        lblAnh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/_Downloader.la_-61dda7760439e_1_-removebg-preview(1).png"))); // NOI18N
-        lblAnh.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        kGradientPanel1.add(lblAnh, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 80, 180, 130));
 
         btnTim.setText("Tìm");
         btnTim.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -462,7 +457,6 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jtbCaSi;
     private com.k33ptoo.components.KGradientPanel kGradientPanel1;
-    private javax.swing.JLabel lblAnh;
     public static javax.swing.JTextField txtMaCS;
     private javax.swing.JTextField txtTK;
     private javax.swing.JTextField txtTenCS;

@@ -390,7 +390,7 @@ public class TTBieuDien_Frame extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn ca sĩ cần xóa", "Thông Báo", 1);
         } else {
             if (JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa ca sĩ " + maBD + " không?", "Thông Báo", 2) == 0) {
-                CaSi.xoaCS(maBD);
+                TTBieuDien.xoaBD(maBD);
             }
             loadBD();
         }
