@@ -254,6 +254,11 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
 
         txtTK.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtTK.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        txtTK.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtTKMouseClicked(evt);
+            }
+        });
         kGradientPanel1.add(txtTK, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 300, 180, 30));
 
         btnXoaTrang.setText("Xóa Trắng");
@@ -435,6 +440,11 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
        }
 
     }//GEN-LAST:event_btnInActionPerformed
+
+    private void txtTKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTKMouseClicked
+        // TODO add your handling code here:
+        txtTK.setText("");
+    }//GEN-LAST:event_txtTKMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

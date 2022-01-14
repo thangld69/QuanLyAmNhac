@@ -351,7 +351,7 @@ public class NhacSi_Frame extends javax.swing.JInternalFrame {
         if (txtTK.getText().length() == 0) {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập mã nhạc sĩ cần tìm", "Thông Báo", 1);
         } else {
-            String sql = "SELECT * FROM nhacsi WHERE MANS = '" + txtTK.getText() + "'";;
+            String sql = "SELECT * FROM nhacsi WHERE MANS = '" + txtTK.getText() + "'";
 
             loadTable.loadData(sql, jtbNhacSi);
             this.countNhacSi.setText("Tổng số nhạc sĩ: " + this.jtbNhacSi.getRowCount());
