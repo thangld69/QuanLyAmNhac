@@ -320,10 +320,10 @@ public class CaSi_Frame extends javax.swing.JInternalFrame {
         } else {
             CaSi.themCS(this.txtMaCS.getText(), this.txtTenCS.getText());
         }
-        //hienThiDanhSach();
+        
         loadCaSi();
     }//GEN-LAST:event_btnThemActionPerformed
-    int co = 0;
+    
     private void jtbCaSiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbCaSiMouseClicked
         // TODO add your handling code here:
         try {

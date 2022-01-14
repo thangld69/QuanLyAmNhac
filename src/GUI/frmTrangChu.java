@@ -36,51 +36,40 @@ public class frmTrangChu extends javax.swing.JFrame {
         jPanel_Nav3.setBackground(panelDefault);
         jPanel_Nav4.setBackground(panelDefault);
         jPanel_Nav5.setBackground(panelDefault);
-        
+        jPanel_Nav6.setBackground(panelDefault);
+
         countCaSi.setText("    " + Integer.toString(MyFunctinon.countData("casi")));
         countNS.setText("    " + Integer.toString(MyFunctinon.countData("nhacsi")));
         countBH.setText("    " + Integer.toString(MyFunctinon.countData("baihat")));
         countBD.setText("    " + Integer.toString(MyFunctinon.countData("thongtinbieudien")));
         LoadDongHo();
     }
-    
+
     Thread dongho;
-    
-    public void LoadDongHo()
-    {
-       dongho= new Thread()
-       {
-           @Override
-           public void run()
-           {
-               while(true)
-               {
-               Date d = new Date();
-               SimpleDateFormat f = new SimpleDateFormat("hh:mm:ss aa dd/MM/YYYY");
-               String time= f.format(d);
-              lbldongho.setText(time);
-               try
-                    {
-                   Thread.sleep(1000);
-               
+
+    public void LoadDongHo() {
+        dongho = new Thread() {
+            @Override
+            public void run() {
+                while (true) {
+                    Date d = new Date();
+                    SimpleDateFormat f = new SimpleDateFormat("hh:mm:ss aa dd/MM/YYYY");
+                    String time = f.format(d);
+                    lbldongho.setText(time);
+                    try {
+                        Thread.sleep(1000);
+
+                    } catch (Exception ex) {
+                        break;
                     }
-               catch(Exception ex)
-                    {
-                   break;
-                    }
-               
-               }
-               
-               
-           }
-           
-           
-           
-       };
-       dongho.start();
-       
-        
-        
+
+                }
+
+            }
+
+        };
+        dongho.start();
+
     }
 
     /**
@@ -116,6 +105,10 @@ public class frmTrangChu extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        jPanel_Nav6 = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
         jDesktopPane2 = new javax.swing.JDesktopPane();
         jPanel6 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -433,6 +426,57 @@ public class frmTrangChu extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
+        jPanel12.setBackground(new java.awt.Color(45, 125, 154));
+        jPanel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel12MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel_Nav6Layout = new javax.swing.GroupLayout(jPanel_Nav6);
+        jPanel_Nav6.setLayout(jPanel_Nav6Layout);
+        jPanel_Nav6Layout.setHorizontalGroup(
+            jPanel_Nav6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 18, Short.MAX_VALUE)
+        );
+        jPanel_Nav6Layout.setVerticalGroup(
+            jPanel_Nav6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 48, Short.MAX_VALUE)
+        );
+
+        jLabel18.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_Office_36px.png"))); // NOI18N
+
+        jLabel20.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setText("Thống Kê");
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addComponent(jPanel_Nav6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel18)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel20)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel_Nav6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -442,15 +486,17 @@ public class frmTrangChu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                 .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnThoat, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnThoat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -460,9 +506,11 @@ public class frmTrangChu extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(btnThoat)
-                .addGap(40, 40, 40))
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 490));
@@ -652,8 +700,13 @@ public class frmTrangChu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
+    //    private void setForm(JComponent com) {
+//        mainPanel.removeAll();
+//        mainPanel.add(com);
+//        mainPanel.repaint();
+//        mainPanel.revalidate();
+//    }
+
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
         // TODO add your handling code here:
         jPanel_Nav1.setBackground(panelClick);
@@ -661,18 +714,13 @@ public class frmTrangChu extends javax.swing.JFrame {
         jPanel_Nav3.setBackground(panelDefault);
         jPanel_Nav4.setBackground(panelDefault);
         jPanel_Nav5.setBackground(panelDefault);
+        jPanel_Nav6.setBackground(panelDefault);
         CaSi_Frame cs = new CaSi_Frame();
         jDesktopPane2.removeAll();
         jDesktopPane2.add(cs).setVisible(true);
 
     }//GEN-LAST:event_jPanel2MouseClicked
 
-//    private void setForm(JComponent com) {
-//        mainPanel.removeAll();
-//        mainPanel.add(com);
-//        mainPanel.repaint();
-//        mainPanel.revalidate();
-//    }
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
         // TODO add your handling code here:
@@ -681,6 +729,7 @@ public class frmTrangChu extends javax.swing.JFrame {
         jPanel_Nav3.setBackground(panelDefault);
         jPanel_Nav4.setBackground(panelDefault);
         jPanel_Nav5.setBackground(panelDefault);
+        jPanel_Nav6.setBackground(panelDefault);
         TTBieuDien_Frame f = new TTBieuDien_Frame();
         jDesktopPane2.removeAll();
         jDesktopPane2.add(f).setVisible(true);
@@ -693,6 +742,7 @@ public class frmTrangChu extends javax.swing.JFrame {
         jPanel_Nav3.setBackground(panelClick);
         jPanel_Nav4.setBackground(panelDefault);
         jPanel_Nav5.setBackground(panelDefault);
+        jPanel_Nav6.setBackground(panelDefault);
         BaiHat_Frame f = new BaiHat_Frame();
         jDesktopPane2.removeAll();
         jDesktopPane2.add(f).setVisible(true);
@@ -705,6 +755,7 @@ public class frmTrangChu extends javax.swing.JFrame {
         jPanel_Nav3.setBackground(panelDefault);
         jPanel_Nav4.setBackground(panelClick);
         jPanel_Nav5.setBackground(panelDefault);
+        jPanel_Nav6.setBackground(panelDefault);
         NhacSi_Frame f = new NhacSi_Frame();
         jDesktopPane2.removeAll();
         jDesktopPane2.add(f).setVisible(true);
@@ -718,6 +769,8 @@ public class frmTrangChu extends javax.swing.JFrame {
         jPanel_Nav3.setBackground(panelDefault);
         jPanel_Nav4.setBackground(panelDefault);
         jPanel_Nav5.setBackground(panelClick);
+        jPanel_Nav6.setBackground(panelDefault);
+
         TrangChu_Frame f = new TrangChu_Frame();
         jDesktopPane2.removeAll();
         jDesktopPane2.add(f).setVisible(true);
@@ -726,10 +779,23 @@ public class frmTrangChu extends javax.swing.JFrame {
     private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
         // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(null, "Bạn có muốn Thoát không?", "Thông Báo", 2) == 0) {
-               System.exit(0);
-            }
-        
+            System.exit(0);
+        }
+
     }//GEN-LAST:event_btnThoatActionPerformed
+
+    private void jPanel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel12MouseClicked
+        // TODO add your handling code here:
+        jPanel_Nav1.setBackground(panelDefault);
+        jPanel_Nav2.setBackground(panelDefault);
+        jPanel_Nav3.setBackground(panelDefault);
+        jPanel_Nav4.setBackground(panelDefault);
+        jPanel_Nav5.setBackground(panelDefault);
+        jPanel_Nav6.setBackground(panelClick);
+        ThongKe_Frame f = new ThongKe_Frame();
+        jDesktopPane2.removeAll();
+        jDesktopPane2.add(f).setVisible(true);
+    }//GEN-LAST:event_jPanel12MouseClicked
 
     /**
      * @param args the command line arguments
@@ -784,8 +850,10 @@ public class frmTrangChu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -797,6 +865,7 @@ public class frmTrangChu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -810,6 +879,7 @@ public class frmTrangChu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel_Nav3;
     private javax.swing.JPanel jPanel_Nav4;
     private javax.swing.JPanel jPanel_Nav5;
+    private javax.swing.JPanel jPanel_Nav6;
     private javax.swing.JLabel lbldongho;
     // End of variables declaration//GEN-END:variables
 }
